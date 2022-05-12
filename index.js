@@ -16,8 +16,9 @@ const playerSchema = new mongoose.Schema({
 });
 const Player = mongoose.model("Player", playerSchema, "players");
 
-app.use("/players", (req, res) => {
-  res.json({ msg: "hallo" });
+app.get("/players", async (req, res) => {
+  const player = await Player.find().exec();
+  res.json(player);
 });
 
 mongoose.connect(process.env.MONGO_CONNECTION).then(() => {
